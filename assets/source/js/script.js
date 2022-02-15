@@ -3,15 +3,15 @@ const wrraperData = document.querySelector('.wrapperData');
 const inputsData = wrraperData.getElementsByTagName('input');
 const btn = document.getElementById('dataFormsubmit');
 
+const elValue = [];
 
 
-function localInputs() {
-    Array.from(inputsData).forEach(el => {
-        const elValue = {}
-        el.value = elValue
-        localStorage.setItem('inputs', JSON.stringify(elValue))
-    }); 
+
+const localInputs = function localInputs() {
+    Array.from(elValue).forEach(e => {
+        e.value = elValue;
+    })
+    localStorage.setItem('key', JSON.stringify(elValue));
 }
 
-
-form.addEventListener('submit', localInputs())
+form.addEventListener('submit', localInputs)
