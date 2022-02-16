@@ -18,7 +18,7 @@ const localInputs = function localInputs() {
         eName.push(elValue);
     })
 
-    localStorage.setItem('key', JSON.stringify(eName));
+    localStorage.setItem('inputs', JSON.stringify(eName));
 }
 
 const addInput = function addInput() {
@@ -27,11 +27,31 @@ const addInput = function addInput() {
     let labelText = document.createTextNode("paravoz");
 
     input.setAttribute('name', 'paravoz')
+    input.setAttribute('value', '')
 
     wrraperData.appendChild(label)
     wrraperData.appendChild(input);
     label.appendChild(labelText);
+
+    const items = localStorage.getItem('inputs')
+
+    if (items) {
+        let elements = JSON.parse(items)
+        localStorage.setItem('inputs', JSON.stringify(elements));
+        for (let i = 0; i < elements.length; i++) {
+            wrraperData.appendChild(elements[i]); 
+        }
+        elements.push(label, input)
+
+       
+    } else {
+        localStorage.setItem('inputs', JSON.stringify(elements));
+    }
 }
+    
+   
+    
+ 
 
 form.addEventListener('submit', localInputs)
 btnAdd.addEventListener('click', addInput)
