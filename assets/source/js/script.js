@@ -4,9 +4,10 @@ const inputsData = wrraperData.getElementsByTagName('input');
 const btn = document.getElementById('dataFormsubmit');
 const btnAdd = document.getElementById('addDataInput');
 
-const localInputs = function localInputs() {
-    let eName = []
+let eName = [];
 
+const localInputs = function localInputs() {
+    
     Array.from(inputsData).forEach(e => {
        
 
@@ -30,28 +31,35 @@ const addInput = function addInput() {
     input.setAttribute('value', '')
 
     wrraperData.appendChild(label)
-    wrraperData.appendChild(input);
-    label.appendChild(labelText);
+    wrraperData.appendChild(input)
+    label.appendChild(labelText)
 
-    const items = localStorage.getItem('inputs')
-
-    if (items) {
-        let elements = JSON.parse(items)
-        localStorage.setItem('inputs', JSON.stringify(elements));
-        for (let i = 0; i < elements.length; i++) {
-            wrraperData.appendChild(elements[i]); 
-        }
-        elements.push(label, input)
-
+    Array.from(inputsData).forEach(e => {
        
+
+        const elValue = {
+            key: e.name,
+            value: e.value
+        }
+
+        eName.push(elValue);
+    })
+
+    localStorage.setItem('inputs', JSON.stringify(eName));
+
+    let localItem = localStorage.getItem('inputs')
+
+    if (localItem) {
+        let localItemParse = JSON.parse(localItem);
+        console.log(localItemParse)
+        localStorage.clear()
+        localItemParse.push(eName);
     } else {
-        localStorage.setItem('inputs', JSON.stringify(elements));
+        localStorage.setItem('inputs', JSON.stringify(eName));
     }
 }
     
-   
-    
- 
 
 form.addEventListener('submit', localInputs)
+
 btnAdd.addEventListener('click', addInput)
