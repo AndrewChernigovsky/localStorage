@@ -6,8 +6,9 @@ const btnAdd = document.getElementById('addDataInput');
 
 let eName = [];
 
-const localInputs = function localInputs() {
-    
+const localInputs = function localInputs(evt) {
+    evt.preventDefault()
+
     Array.from(inputsData).forEach(e => {
        
 
@@ -17,15 +18,28 @@ const localInputs = function localInputs() {
         }
 
         eName.push(elValue);
-    })
+    });
 
-    localStorage.setItem('inputs', JSON.stringify(eName));
+    let getLocal = localStorage.getItem('inputs') 
+
+    if(getLocal) {
+        if(eName.length > 0){
+            localStorage.clear()
+            localStorage.setItem('inputs', JSON.stringify(eName))
+            console.log(0)
+            console.log(eName)
+        }
+    } else {
+        localStorage.setItem('inputs', JSON.stringify(eName))
+        console.log(3)
+        console.log(eName)
+    }
 }
 
 const addInput = function addInput() {
     let label = document.createElement('label')
     let input = document.createElement('input')
-    let labelText = document.createTextNode("paravoz");
+    let labelText = document.createTextNode('paravoz');
 
     input.setAttribute('name', 'paravoz')
     input.setAttribute('value', '')
@@ -35,30 +49,35 @@ const addInput = function addInput() {
     label.appendChild(labelText)
 
     Array.from(inputsData).forEach(e => {
-       
 
         const elValue = {
             key: e.name,
             value: e.value
         }
 
-        eName.push(elValue);
+        eName = eName[eName.length - 1]
+
+        eName = Array.from(eName)
+
+        eName = eName.push(elValue);
     })
 
-    localStorage.setItem('inputs', JSON.stringify(eName));
+    localStorage.setItem('inputs', JSON.stringify(eName))
+    console.log(45)
+    console.log(eName)
+}
 
-    let localItem = localStorage.getItem('inputs')
+window.onload = function() {
+    let items = localStorage.getItem('inputs');
 
-    if (localItem) {
-        let localItemParse = JSON.parse(localItem);
-        console.log(localItemParse)
-        localStorage.clear()
-        localItemParse.push(eName);
-    } else {
-        localStorage.setItem('inputs', JSON.stringify(eName));
+    if(items) {
+        let items = JSON.parse(localStorage.getItem('inputs'));
+        inputsData.name = items.name
+        inputsData.value = items.value
+        wrraperData.innerHTML = inputsData
+
     }
 }
-    
 
 form.addEventListener('submit', localInputs)
 
