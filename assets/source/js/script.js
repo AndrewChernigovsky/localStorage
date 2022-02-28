@@ -23,6 +23,8 @@ const localInputs = function localInputs(evt) {
     let getLocal = localStorage.getItem('inputs') 
 
     if(getLocal) {
+        eName.length = 0
+        
         if(eName.length > 0){
             localStorage.clear()
             localStorage.setItem('inputs', JSON.stringify(eName))
@@ -55,11 +57,9 @@ const addInput = function addInput() {
             value: e.value
         }
 
-        eName = eName[eName.length - 1]
+        // eName = eName[eName.length - 1]
 
-        eName = Array.from(eName)
-
-        eName = eName.push(elValue);
+        eName.push(elValue);
     })
 
     localStorage.setItem('inputs', JSON.stringify(eName))
@@ -67,17 +67,19 @@ const addInput = function addInput() {
     console.log(eName)
 }
 
-window.onload = function() {
-    let items = localStorage.getItem('inputs');
+// window.onload = function() {
+//     let items = localStorage.getItem('inputs');
 
-    if(items) {
-        let items = JSON.parse(localStorage.getItem('inputs'));
-        inputsData.name = items.name
-        inputsData.value = items.value
-        wrraperData.innerHTML = inputsData
+//     if(items) {
+//         let items = JSON.parse(localStorage.getItem('inputs'));
+//         inputsData.name = items.name
+//         inputsData.value = items.value
+//         wrraperData.innerHTML = inputsData
 
-    }
-}
+//         console.log(wrraperData.innerHTML = inputsData)
+
+//     }
+// }
 
 form.addEventListener('submit', localInputs)
 
