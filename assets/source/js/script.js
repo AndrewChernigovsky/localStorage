@@ -28,13 +28,9 @@ const localInputs = function localInputs(evt) {
         if(eName.length > 0){
             localStorage.clear()
             localStorage.setItem('inputs', JSON.stringify(eName))
-            console.log(0)
-            console.log(eName)
         }
     } else {
         localStorage.setItem('inputs', JSON.stringify(eName))
-        console.log(3)
-        console.log(eName)
     }
 }
 
@@ -57,14 +53,22 @@ const addInput = function addInput() {
             value: e.value
         }
 
-        // eName = eName[eName.length - 1]
+        eName.push(elValue)
 
-        eName.push(elValue);
+        eName[eName.length - 1]
+
+        console.log(eName)
+
+        // let Ename = eName[eName.length - 1]
+
+        // eName = Ename
+
+        // console.log(eName)
+
+        // eName.push(elValue)
     })
 
     localStorage.setItem('inputs', JSON.stringify(eName))
-    console.log(45)
-    console.log(eName)
 }
 
 // window.onload = function() {
@@ -80,6 +84,8 @@ const addInput = function addInput() {
 
 //     }
 // }
+
+console.log('deafult 121312', eName)
 
 form.addEventListener('submit', localInputs)
 
